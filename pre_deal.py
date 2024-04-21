@@ -29,12 +29,15 @@ def readLines(filename):
 category_lines={}
 all_categories=[]
 
+
 # 读取文件
 for filename in glob.glob(data_path+'*.txt'):
     category = os.path.splitext(os.path.basename(filename))[0]
     all_categories.append(category)
     lines = readLines(filename)
     category_lines[category] = lines
+
+n_categories=len(all_categories)
 
 #将人名转化为one-hot编码
 def line_to_tensor(line):

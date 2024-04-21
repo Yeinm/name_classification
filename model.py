@@ -10,7 +10,7 @@ class RNN(nn.Module):
 
         self.rnn = nn.RNN(input_size,hidden_size,num_layers)
         self.linear = nn.Linear(hidden_size,output_size)
-        self.softmax = nn.LogSoftmax(dim=1)
+        self.softmax = nn.LogSoftmax(dim=-1)
 
     def forward(self,input,hidden):
         input = input.unsqueeze(0)
@@ -31,7 +31,7 @@ class LSTM(nn.Module):
 
     def forward(self,input,hidden,c):
         input = input.unsqueeze(0)
-        rr,hn,cn = self.lstm(input,(hidden,c))
+        rr,(hn,cn) = self.lstm(input,(hidden,c))
         return self.softmax(self.linear(rr)), hn, cn
 
     def initHidden(self):
@@ -47,18 +47,13 @@ class GRU(nn.Module):
         self.linear = nn.Linear(hidden_size,output_size)
         self.softmax = nn.LogSoftmax(dim=-1)
 
-        def forward(self,input,hidden):
-            input = input.unsqueeze(0)
-            rr,hn = self.gru(input,hidden)
-            return self.softmax(self.linear(rr)), hn
+    def forward(self,input,hidden):
+        input = input.unsqueeze(0)
+        rr,hn = self.gru(input,hidden)
+        return self.softmax(self.linear(rr)), hn
 
-        def initHidden(self):
-            return torch.zeros(self.num_layers,1,self.hidden_size)
-
-
-
-
-
+    def initHidden(self):
+        hidden = torch.zeros(self.num_layers,1,self.hidden_size)
 
 
 
