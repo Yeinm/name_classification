@@ -1,4 +1,5 @@
 import model
+from pre_deal import line_to_tensor
 from train import rnn, lstm, gru
 
 
@@ -22,4 +23,15 @@ def evaluateGRU(line_tensor):
     for i in range(line_tensor.size()[0]):
         output, hidden = gru(line_tensor[i],hidden)
     return output.squeeze(0)
+
+line='Bai'
+line_tensor=line_to_tensor(line)
+rnn_output=evaluateRNN(line_tensor)
+lstm_output=evaluateLSTM(line_tensor)
+gru_output=evaluateGRU(line_tensor)
+print("rnn_output",rnn_output)
+print("lstm_output",lstm_output)
+print("gru_output",gru_output)
+
+
 

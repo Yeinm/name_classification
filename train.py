@@ -48,15 +48,15 @@ def randomTrainingExample():
     category_tensor = torch.tensor([pre_deal.all_categories.index(category)], dtype=torch.long)
     line_tensor = pre_deal.line_to_tensor(line)
     return category, line, category_tensor, line_tensor
-
-for i in range(1):
+'''
+for i in range(10):
     category, line, category_tensor, line_tensor = randomTrainingExample()
     print('/category:',category, '/line:',line, '/category:',category_tensor, '/line_tensor:',line_tensor)
     print(line_tensor.shape)
-
+'''
 #初始化在这
 criterion = nn.NLLLoss()
-learning_rate = 0.005
+learning_rate = 0.01
 
 def trainrnn(category_tensor, line_tensor):
     hidden = rnn.initHidden()
@@ -147,11 +147,6 @@ x_data=['RNN','LSTM','GRU']
 y_data=[time1,time2,time3]
 plt.bar(range(len(x_data)),y_data,tick_label=x_data)
 '''
-
-#评估模型
-
-
-
 
 
 
