@@ -31,12 +31,12 @@ class LSTM(nn.Module):
 
     def forward(self,input,hidden,c):
         input = input.unsqueeze(0)
-        rr,(hn,cn) = self.lstm(input,(hidden,c))
-        return self.softmax(self.linear(rr)), hn, cn
+        rr,(hn,c) = self.lstm(input,(hidden,c))
+        return self.softmax(self.linear(rr)), hn, c
 
     def initHidden(self):
-        cn=hidden = torch.zeros(self.num_layers,1,self.hidden_size)
-        return hidden,cn
+        c =hidden = torch.zeros(self.num_layers,1,self.hidden_size)
+        return hidden,c
 
 class GRU(nn.Module):
     def __init__(self,input_size,hidden_size,output_size,num_layers=1):
@@ -54,6 +54,6 @@ class GRU(nn.Module):
 
     def initHidden(self):
         hidden = torch.zeros(self.num_layers,1,self.hidden_size)
-
+        return hidden
 
 
